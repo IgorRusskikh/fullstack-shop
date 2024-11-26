@@ -1,0 +1,45 @@
+.overlay {
+  @apply fixed w-full h-[100dvh] z-40 backdrop-brightness-[0.4] left-0 top-0 flex justify-center items-center;
+}
+
+.modal {
+  @apply bg-white rounded-xl relative;
+  @apply 2xl:min-w-[500px] 2xl:p-5 2xl:py-7;
+}
+
+.modal h3 {
+  @apply text-center uppercase font-semibold;
+  @apply 2xl:text-3xl;
+}
+
+.form {
+  @apply flex flex-col;
+  @apply 2xl:gap-5 2xl:mt-10;
+}
+
+.form input {
+  @apply w-full border border-[#376F6F] rounded-lg py-3 px-3 outline-none;
+}
+
+.fieldset {
+  @apply flex flex-col;
+  @apply 2xl:gap-2;
+}
+
+.submit {
+  @apply w-full rounded-lg bg-[#376F6F] text-white uppercase;
+  @apply 2xl:py-4 2xl:text-xl;
+}
+
+.providers {
+  @apply flex justify-center items-center;
+  @apply 2xl:gap-5;
+}
+
+.provider {
+  @apply flex flex-col items-center justify-center;
+}
+
+.alreadyHaveAccoutn {
+  @apply 2xl:mt-4
+}

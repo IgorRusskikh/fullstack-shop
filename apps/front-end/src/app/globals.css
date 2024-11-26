@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  @apply mx-auto;
+  @apply 2xl:max-w-[1440px];
+}
+
+.swiper-slide {
+  width: fit-content !important;
+}
+
+@media screen and (min-width: 1024px) {
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+  }
+  *::-webkit-scrollbar-track {
+    width: 8px;
+    background: white;
+  }
+  body::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.3);
+  }
+  body::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+  }
+  body::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}

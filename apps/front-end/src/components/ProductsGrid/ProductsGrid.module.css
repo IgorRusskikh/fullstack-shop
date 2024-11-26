@@ -1,0 +1,4 @@
+.productsGrid {
+  @apply grid grid-cols-4;
+  @apply 2xl:pt-[120px] gap-5 gap-y-[68px];
+}

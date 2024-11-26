@@ -1,0 +1,45 @@
+.header {
+  @apply w-full font-[family-name:var(--font-roboto)];
+  @apply 2xl:py-6;
+}
+
+.logo {
+  @apply font-bold text-[#376F6F];
+  @apply 2xl:text-2xl;
+}
+
+.container {
+  @apply mx-auto flex justify-between items-center;
+}
+
+.nav ul {
+  @apply flex;
+  @apply 2xl:gap-4 2xl:text-lg uppercase;
+}
+
+.nav ul li {
+  @apply hover:text-[#88BDBC] transition-colors;
+}
+
+.actions {
+  @apply flex;
+  @apply 2xl:gap-5;
+}
+
+.search {
+  @apply border-b border-gray-500 flex items-center;
+  @apply 2xl:gap-2 2xl:px-[2px];
+}
+
+.search input {
+  @apply outline-none border-none bg-transparent;
+}
+
+.cart {
+  @apply flex items-center hover:text-[#376F6F] transition-colors;
+}
+
+.cart p {
+  @apply 2xl:text-lg 2xl:ml-2;
+
+}

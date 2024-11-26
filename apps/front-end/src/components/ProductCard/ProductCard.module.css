@@ -1,0 +1,73 @@
+.card {
+  @apply relative transition-["scale"] duration-500;
+  @apply 2xl:min-h-[400px] h-full;
+}
+
+.card::before {
+  content: "";
+  @apply w-full h-full absolute top-0 left-0 z-10 bg-[#e6e7e2] visible transition-all duration-500 rounded-xl;
+}
+
+.card:hover::before {
+  @apply opacity-0 invisible;
+}
+
+.card::after {
+  content: "";
+  @apply bg-[url("/product-card-bg.avif")] bg-no-repeat bg-cover absolute w-full h-full left-0 top-0 z-0 rounded-xl brightness-[.80];
+}
+
+.cardContent {
+  @apply absolute left-0 top-0 2xl:p-5 2xl:pt-32 z-20 text-[#9e9d98] w-full h-full;
+}
+
+.productImage {
+  @apply 2xl:size-44 bg-black rounded-full absolute z-20 2xl:translate-x-[50%] 2xl:translate-y-[-30%];
+}
+
+.productTitle {
+  @apply 2xl:text-3xl font-medium transition-colors duration-500 font-[family-name:var(--font-edu-vic-wa)];
+}
+
+.product {
+  @apply relative;
+}
+
+.productInfo {
+  @apply 2xl:mt-5 transition-all duration-500 !text-[#9e9d98];
+}
+
+.actionsContainer {
+  @apply absolute w-full top-0 left-0 opacity-0 scale-100 transition-all duration-500;
+}
+
+.modification {
+  @apply 2xl:py-1 2xl:px-2 border border-white w-fit rounded-md hover:text-[#376F6F] hover:bg-[#BABABA] transition-all duration-300 cursor-pointer;
+}
+
+.modificationSelected {
+  @apply !bg-white text-[#376F6F];
+}
+
+.actions {
+  @apply flex flex-col items-center;
+  @apply 2xl:mt-8;
+}
+
+.addToCartButton {
+  @apply mx-auto rounded-xl hover:bg-white hover:text-[#376F6F] transition-colors duration-300 uppercase;
+  @apply 2xl:w-[80%] 2xl:py-3 border border-white;
+}
+
+.actions a {
+  @apply 2xl:mt-5 2xl:text-lg relative;
+}
+
+.actions a::before {
+  content: "";
+  @apply w-0 border-b-2 absolute bottom-0 left-0 transition-['width'] duration-300 ease-in-out;
+}
+
+.actions a:hover::before {
+  @apply w-full;
+}

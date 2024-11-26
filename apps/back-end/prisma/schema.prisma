@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
+  username         String?
+  phone            String?   @unique
+  email            String?   @unique
+  password         String?
+  emailVerified    DateTime?
+  image            String?
+  refreshToken     String?
+  tokenVersion     Int       @default(0)
+  verificationLink String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  accounts         Account[]
+
+  Cart  Cart[]
+  Order Order[]
+}
+
+model Account {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?  @db.String
+  access_token      String?  @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?  @db.String
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Category {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name      String  @unique
+  productId String? @db.ObjectId
+
+  Product Product? @relation(fields: [productId], references: [id])
+}
+
+model Modification {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name      String  @unique
+  productId String? @db.ObjectId
+
+  Product Product? @relation(fields: [productId], references: [id])
+}
+
+model Product {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  slug        String
+  description String
+  price       Int    @default(0)
+  quantity    Int    @default(0)
+
+  modificationIds Modification[]
+  Cart            Cart[]
+  Order           Order[]
+  Category        Category[]
+}
+
+model Cart {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String @db.ObjectId
+  productId String @db.ObjectId
+  quantity  Int
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+}
+
+model Order {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String      @db.ObjectId
+  productId  String      @db.ObjectId
+  quantity   Int
+  totalPrice Int
+  status     OrderStatus @default(PENDING)
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}

@@ -1,0 +1,84 @@
+.cart {
+  @apply fixed right-0 top-0 bg-white shadow-xl h-[100dvh] z-30 transition-['transform'] duration-500 ease-in-out;
+  @apply 2xl:p-7 2xl:w-[30%];
+}
+
+.cartContainer {
+  @apply flex flex-col h-full;
+}
+
+.header {
+  @apply w-full flex justify-between items-center border-b font-semibold;
+  @apply 2xl:text-4xl uppercase 2xl:pb-4;
+}
+
+.header button {
+  @apply hover:text-[#376F6F] transition-colors;
+}
+
+.empty {
+  @apply flex justify-center items-center h-full text-2xl uppercase;
+}
+
+.productsList {
+  @apply flex-1 h-full overflow-y-auto;
+  @apply 2xl:mt-4 border-black pr-5;
+}
+
+.product {
+  @apply flex 2xl:gap-4 border-b 2xl:pb-4;
+}
+
+.productImage {
+  @apply 2xl:size-32 rounded-2xl bg-black;
+}
+
+.productDetails {
+  @apply flex-1 flex flex-col justify-between;
+  @apply 2xl:py-1;
+}
+
+.productTitle {
+  @apply 2xl:text-3xl font-[family-name:var(--font-edu-vic-wa)];
+}
+
+.productPriceContainer {
+  @apply flex justify-between 2xl:text-base;
+}
+
+.quantity {
+  @apply uppercase;
+}
+
+.price {
+  @apply opacity-50;
+}
+
+.actions {
+  @apply 2xl:text-xl 2xl:pt-5 uppercase;
+}
+
+.actions button {
+  @apply 2xl:mt-5 w-full bg-[#376F6F] text-white 2xl:text-lg uppercase 2xl:py-5 rounded-lg;
+}
+
+@media screen and (min-width: 1024px) {
+  .productsList::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+  }
+  .productsList::-webkit-scrollbar-track {
+    width: 8px;
+    background: white;
+  }
+  .productsList::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.3);
+  }
+  .productsList::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .productsList::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
