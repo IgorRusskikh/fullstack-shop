@@ -72,4 +72,18 @@ export class AuthController {
 
     res.status(200).json({ message: 'Logout successful' });
   }
+
+  @Get('refresh')
+  @UseGuards(JwtGuard)
+  async refresh(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { userId } = req.user as ReqUserDto;
+    const accessToken = await this.authService.refresh(userId);
+
+    res.cookie('access-token', accessToken, accessTokenCookie);
+
+    return { accessToken };
+  }
 }

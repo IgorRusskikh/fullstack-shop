@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { accessTokenPayloadDto } from '../dto/accessTokenPayloadDto';
 import { refreshTokenPayloadDto } from '../dto/refreshTokenPayloadDto';
@@ -37,5 +37,15 @@ export class AccessTokensService {
     const payload = await this.jwtService.verifyAsync(token);
 
     return payload;
+  }
+
+  async validateRefreshToken(token: string): Promise<refreshTokenPayloadDto> {
+    try {
+      const payload = await this.jwtService.verifyAsync(token);
+
+      return payload;
+    } catch (error) {
+      return null;
+    }
   }
 }

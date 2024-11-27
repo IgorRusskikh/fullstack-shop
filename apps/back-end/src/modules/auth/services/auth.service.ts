@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import * as argon2 from 'argon2';
 import { AccessTokensService } from 'src/common/services/access-tokens/access-tokens.service';
@@ -98,5 +98,30 @@ export class AuthService {
       phone: user.phone,
       tokenVersion: user.tokenVersion,
     };
+  }
+
+  async refresh(userId: string) {
+    const user = await this.userService.getOne(userId);
+
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const refreshTokenPayload = await this.tokensService.validateRefreshToken(
+      user.refreshToken,
+    );
+
+    if (!refreshTokenPayload) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    const accessTokenPayload: accessTokenPayloadDto = {
+      userId,
+    };
+
+    const accessToken =
+      await this.tokensService.generateAccessToken(accessTokenPayload);
+
+    return accessToken;
   }
 }
