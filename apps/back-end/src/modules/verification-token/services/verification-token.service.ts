@@ -6,7 +6,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { EmailService } from 'src/common/services/email/email.service';
 import { UserService } from 'src/modules/user/services/user.service';
-import { EmailVerificationTokenDto } from '../dtos/email-verification-token.dto';
+import { EmailVerificationTokenDto } from '../dtos';
 
 @Injectable()
 export class VerificationTokenService {

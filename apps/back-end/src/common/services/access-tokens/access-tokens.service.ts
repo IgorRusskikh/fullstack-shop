@@ -1,7 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { accessTokenPayloadDto } from '../dto/accessTokenPayloadDto';
-import { refreshTokenPayloadDto } from '../dto/refreshTokenPayloadDto';
+import { accessTokenPayloadDto, refreshTokenPayloadDto } from '../dtos';
 
 @Injectable()
 export class AccessTokensService {

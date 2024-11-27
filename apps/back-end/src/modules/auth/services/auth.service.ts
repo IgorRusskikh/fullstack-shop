@@ -6,12 +6,14 @@ import {
 import { Prisma } from '@prisma/client';
 import * as argon2 from 'argon2';
 import { AccessTokensService } from 'src/common/services/access-tokens/access-tokens.service';
-import { accessTokenPayloadDto } from 'src/common/services/dto/accessTokenPayloadDto';
-import { refreshTokenPayloadDto } from 'src/common/services/dto/refreshTokenPayloadDto';
 import { EmailService } from 'src/common/services/email/email.service';
 import { UserService } from 'src/modules/user/services/user.service';
-import { RecoverPasswordTokenDto } from '../dtos/recover-password-token.dto';
 import { VerificationTokenService } from 'src/modules/verification-token/services/verification-token.service';
+import { RecoverPasswordTokenDto } from '../dtos';
+import {
+  accessTokenPayloadDto,
+  refreshTokenPayloadDto,
+} from 'src/common/services/dtos';
 
 /**
  * AuthService is a service that encapsulates the logic for registering

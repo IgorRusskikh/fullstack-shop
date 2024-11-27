@@ -14,8 +14,8 @@ import { Request, Response } from 'express';
 import { accessTokenCookie } from 'src/constants/cookie.constant';
 import { AuthService } from '../services/auth.service';
 import { LocalAuthGuard } from 'src/common/guards/local-auth.guard';
-import { ReqUserDto } from '../dtos/req-user.dto';
 import { JwtGuard } from 'src/common/guards/jwt.guard';
+import { ReqUserDto } from '../dtos';
 
 @Controller('auth')
 export class AuthController {
