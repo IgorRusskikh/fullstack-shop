@@ -1,10 +1,17 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import * as argon2 from 'argon2';
 import { AccessTokensService } from 'src/common/services/access-tokens/access-tokens.service';
 import { accessTokenPayloadDto } from 'src/common/services/dto/accessTokenPayloadDto';
 import { refreshTokenPayloadDto } from 'src/common/services/dto/refreshTokenPayloadDto';
+import { EmailService } from 'src/common/services/email/email.service';
 import { UserService } from 'src/modules/user/services/user.service';
+import { RecoverPasswordTokenDto } from '../dtos/recover-password-token.dto';
+import { VerificationTokenService } from 'src/modules/verification-token/services/verification-token.service';
 
 /**
  * AuthService is a service that encapsulates the logic for registering
@@ -17,6 +24,8 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly tokensService: AccessTokensService,
+    private readonly emailService: EmailService,
+    private readonly verificationTokenService: VerificationTokenService,
   ) {}
 
   /**
@@ -61,6 +70,26 @@ export class AuthService {
     console.log(a);
 
     return true;
+  }
+
+  async sendEmailVerificationToken(userId: string) {
+    const token = await this.verificationTokenService.create(userId);
+
+    if (!token) {
+      throw new BadRequestException('Failed to generate token');
+    }
+
+    return 'Verification token sent';
+  }
+
+  async verifyEmail(token: string) {
+    const isVerified = await this.verificationTokenService.verify(token);
+
+    if (!isVerified) {
+      throw new BadRequestException('Invalid token');
+    }
+
+    return 'Email verified';
   }
 
   /**
@@ -123,5 +152,34 @@ export class AuthService {
       await this.tokensService.generateAccessToken(accessTokenPayload);
 
     return accessToken;
+  }
+
+  async sendRecoverPasswordToken(userId: string) {
+    const user = await this.userService.getOne(userId);
+
+    const recoverTokenPayload: RecoverPasswordTokenDto = {
+      userId,
+      email: user.email,
+    };
+
+    if (!user.emailVerified) {
+      throw new BadRequestException('Email not verified');
+    }
+
+    const recoverToken = await this.tokensService.generateJwtToken(
+      recoverTokenPayload,
+      '5m',
+    );
+
+    const isSend = await this.emailService.sendRecoverPasswordToken(
+      user.email,
+      recoverToken,
+    );
+
+    if (!isSend) {
+      throw new BadRequestException('Failed to send verification token');
+    }
+
+    return true;
   }
 }

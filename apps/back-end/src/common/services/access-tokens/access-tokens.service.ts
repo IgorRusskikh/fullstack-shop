@@ -7,6 +7,22 @@ import { refreshTokenPayloadDto } from '../dto/refreshTokenPayloadDto';
 export class AccessTokensService {
   constructor(private readonly jwtService: JwtService) {}
 
+  async generateJwtToken(payload: any, expiresIn: string): Promise<string> {
+    const token = await this.jwtService.signAsync(payload, { expiresIn });
+
+    return token;
+  }
+
+  async validateJwtToken(token: string): Promise<any> {
+    try {
+      const payload = await this.jwtService.verifyAsync(token);
+
+      return payload;
+    } catch (error) {
+      return null;
+    }
+  }
+
   async generateAccessToken(payload: accessTokenPayloadDto): Promise<string> {
     const accessToken = await this.jwtService.signAsync(payload, {
       expiresIn: '15m',

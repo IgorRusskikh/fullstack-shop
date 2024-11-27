@@ -2,7 +2,9 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
+  Query,
   Req,
   Res,
   UseGuards,
@@ -12,7 +14,7 @@ import { Request, Response } from 'express';
 import { accessTokenCookie } from 'src/constants/cookie.constant';
 import { AuthService } from '../services/auth.service';
 import { LocalAuthGuard } from 'src/common/guards/local-auth.guard';
-import { ReqUserDto } from '../dto/req-user.dto';
+import { ReqUserDto } from '../dtos/req-user.dto';
 import { JwtGuard } from 'src/common/guards/jwt.guard';
 
 @Controller('auth')
@@ -66,8 +68,6 @@ export class AuthController {
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     res.clearCookie('access-token');
 
-    // console.log('req.user', req.user);
-
     await this.authService.logout((req.user as ReqUserDto).userId);
 
     res.status(200).json({ message: 'Logout successful' });
@@ -86,4 +86,23 @@ export class AuthController {
 
     return { accessToken };
   }
+
+  @Get('email-verification/get-token')
+  @UseGuards(JwtGuard)
+  async getEmailVerificationToken(@Req() req: Request) {
+    const { userId } = req.user as ReqUserDto;
+    return await this.authService.sendEmailVerificationToken(userId);
+  }
+
+  @Get('email-verification/verify/:token')
+  async verifyEmail(@Param('token') token: string) {
+    return await this.authService.verifyEmail(token);
+  }
+
+  // @Post('recover-password')
+  // @UseGuards(JwtGuard)
+  // async recoverPassword(@Req() req: Request) {
+  //   const { userId } = req.user as ReqUserDto;
+  //   return await this.authService.recoverPassword(userId);
+  // }
 }

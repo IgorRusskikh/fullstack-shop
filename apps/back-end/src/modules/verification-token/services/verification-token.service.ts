@@ -6,7 +6,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { EmailService } from 'src/common/services/email/email.service';
 import { UserService } from 'src/modules/user/services/user.service';
-import { VerificationTokenDto } from '../dtos';
+import { EmailVerificationTokenDto } from '../dtos/email-verification-token.dto';
 
 @Injectable()
 export class VerificationTokenService {
@@ -45,7 +45,7 @@ export class VerificationTokenService {
   async verify(token: string): Promise<boolean | HttpExceptionOptions> {
     try {
       const payload =
-        await this.jwtService.verifyAsync<VerificationTokenDto>(token);
+        await this.jwtService.verifyAsync<EmailVerificationTokenDto>(token);
 
       const user = await this.userService.patch(payload.userId, {
         emailVerified: Date.toString(),

@@ -35,7 +35,16 @@ export class EmailService {
       ...this.defaultOptions,
       to,
       subject: 'Verify your email',
-      text: `Click on the link to verify your email: http://localhost:3000/verification-token/verify/${token}`,
+      text: `Click on the link to verify your email: ${this.configService.get<string>('EMAIL_VERIFICATION_URL')}/verify/${token}`,
+    });
+  }
+
+  sendRecoverPasswordToken(to: string, token: string) {
+    return this.transporter.sendMail({
+      ...this.defaultOptions,
+      to,
+      subject: 'Recover your password',
+      text: `Click on the link to recover your password: ${this.configService.get<string>('RECOVER_PASSWORD_URL')}/verify/${token}`,
     });
   }
 }
