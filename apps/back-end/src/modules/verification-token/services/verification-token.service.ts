@@ -47,8 +47,14 @@ export class VerificationTokenService {
       const payload =
         await this.jwtService.verifyAsync<EmailVerificationTokenDto>(token);
 
-      const user = await this.userService.patch(payload.userId, {
-        emailVerified: Date.toString(),
+      const user = await this.userService.getOne(payload.userId);
+
+      if (user.emailVerified) {
+        throw new BadRequestException('Email already verified');
+      }
+
+      await this.userService.patch(payload.userId, {
+        emailVerified: new Date(),
         verificationLink: '',
       });
 

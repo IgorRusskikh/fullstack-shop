@@ -67,9 +67,7 @@ export class AuthService {
       throw new Error('User not found');
     }
 
-    const a = await this.userService.patch(user.id, { refreshToken: '' });
-
-    console.log(a);
+    await this.userService.patch(user.id, { refreshToken: '' });
 
     return true;
   }
