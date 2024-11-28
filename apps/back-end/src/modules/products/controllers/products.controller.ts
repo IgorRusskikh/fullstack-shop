@@ -7,7 +7,7 @@ export class ProductsController {
     // return this.productsService.findOne(slug);
   }
 
-  findAll() {
-    // return this.productsService.findAll();
-  }
+  // findAll() {
+  //   // return this.productsService.findAll();
+  // }
 }
