@@ -5,14 +5,14 @@ import { EmailService } from 'src/common/services/email/email.service';
 import { PrismaService } from 'src/common/services/prisma/prisma.service';
 import { UserService } from '../user/services/user.service';
 import { VerificationTokenController } from './controllers/verification-token.controller';
-import { VerificationTokenService } from './services/verification-token.service';
+import { EmailVerificationTokenService } from './services/email-verification-token.service';
 
 @Module({
   imports: [ConfigModule, JwtCustomModule],
   controllers: [VerificationTokenController],
   providers: [
     ConfigService,
-    VerificationTokenService,
+    EmailVerificationTokenService,
     PrismaService,
     UserService,
     EmailService,

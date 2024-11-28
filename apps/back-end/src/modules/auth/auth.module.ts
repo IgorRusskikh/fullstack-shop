@@ -9,7 +9,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { EmailService } from 'src/common/services/email/email.service';
-import { VerificationTokenService } from '../verification-token/services/verification-token.service';
+import { EmailVerificationTokenService } from '../verification-token/services/email-verification-token.service';
 
 /**
  * Module for authentication and authorization.
@@ -44,7 +44,7 @@ import { VerificationTokenService } from '../verification-token/services/verific
     UserService,
     JwtStrategy,
     EmailService,
-    VerificationTokenService
+    EmailVerificationTokenService,
   ],
 })
 export class AuthModule {}

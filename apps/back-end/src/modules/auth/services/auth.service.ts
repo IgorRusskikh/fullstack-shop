@@ -8,12 +8,12 @@ import * as argon2 from 'argon2';
 import { AccessTokensService } from 'src/common/services/access-tokens/access-tokens.service';
 import { EmailService } from 'src/common/services/email/email.service';
 import { UserService } from 'src/modules/user/services/user.service';
-import { VerificationTokenService } from 'src/modules/verification-token/services/verification-token.service';
 import { RecoverPasswordTokenDto } from '../dtos';
 import {
   accessTokenPayloadDto,
   refreshTokenPayloadDto,
 } from 'src/common/services/dtos';
+import { EmailVerificationTokenService } from 'src/modules/verification-token/services/email-verification-token.service';
 
 /**
  * AuthService is a service that encapsulates the logic for registering
@@ -27,7 +27,7 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly tokensService: AccessTokensService,
     private readonly emailService: EmailService,
-    private readonly verificationTokenService: VerificationTokenService,
+    private readonly verificationTokenService: EmailVerificationTokenService,
   ) {}
 
   /**

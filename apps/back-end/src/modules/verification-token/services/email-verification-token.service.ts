@@ -9,7 +9,7 @@ import { UserService } from 'src/modules/user/services/user.service';
 import { EmailVerificationTokenDto } from '../dtos';
 
 @Injectable()
-export class VerificationTokenService {
+export class EmailVerificationTokenService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
