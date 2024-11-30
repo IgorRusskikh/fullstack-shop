@@ -10,6 +10,16 @@ import { PrismaService } from 'src/common/services/prisma/prisma.service';
 export class CategoriesService {
   constructor(private readonly prismaService: PrismaService) {}
 
+  async findMany(names: string[]) {
+    return await this.prismaService.category.findMany({
+      where: {
+        name: {
+          in: names,
+        },
+      },
+    });
+  }
+
   /**
    * Creates a new category
    * @param createCategoryDto - DTO containing category creation data
