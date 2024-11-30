@@ -78,10 +78,10 @@ model Product {
   price       Int    @default(0)
   quantity    Int    @default(0)
 
-  modificationIds Modification[]
-  Cart            Cart[]
-  Order           Order[]
-  Category        Category[]
+  Cart         Cart[]
+  Order        Order[]
+  Category     Category[]
+  Modification Modification[]
 }
 
 model Cart {
