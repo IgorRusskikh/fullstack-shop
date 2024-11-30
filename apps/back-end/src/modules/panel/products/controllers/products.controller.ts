@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
 import { Prisma } from '@prisma/client';
 import { ProductsService as FrontProductsService } from 'src/modules/front/products/services/products.service';
+import { CreateProductDto } from '../dtos/create-product.dto';
 
 /**
  * Controller for managing products in the admin panel
@@ -29,7 +30,12 @@ export class ProductsController {
    */
   @Get(':slug')
   findOne(@Param('slug') slug: string) {
-    return this.frontProductsService.findBySlug(slug);
+    return this.frontProductsService.findOne(slug, {
+      where: { slug },
+      include: {
+        Category: true,
+      },
+    });
   }
 
   /**
@@ -38,7 +44,7 @@ export class ProductsController {
    * @returns The created product
    */
   @Post()
-  create(@Body() productCreateDto: Prisma.ProductCreateInput) {
+  create(@Body() productCreateDto: CreateProductDto) {
     return this.productsService.create(productCreateDto);
   }
 }

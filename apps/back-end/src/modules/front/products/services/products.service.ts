@@ -17,7 +17,7 @@ export class ProductsService {
     });
 
     if (!product) {
-      throw new NotFoundException('Product not found');
+      return null;
     }
 
     return product;
