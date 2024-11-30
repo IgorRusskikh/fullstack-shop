@@ -66,7 +66,7 @@ model Modification {
 model Product {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
   title       String
-  slug        String
+  slug        String @unique
   description String
   price       Int    @default(0)
   quantity    Int    @default(0)
