@@ -22,6 +22,6 @@ export class CategoriesController {
 
   @Post()
   async create(@Body() createCategoryDto: Prisma.CategoryCreateInput) {
-    return;
+    return this.categoriesService.create(createCategoryDto);
   }
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/common/services/prisma/prisma.service';
 
@@ -12,7 +12,7 @@ export class CategoriesService {
     });
 
     if (existingCategory) {
-      throw new BadRequestException('Category already exists');
+      throw new ConflictException('Category already exists');
     }
 
     return this.prismaService.category.create({ data: createCategoryDto });
