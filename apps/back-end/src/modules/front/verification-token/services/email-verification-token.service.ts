@@ -8,6 +8,9 @@ import { EmailService } from 'src/common/services/email/email.service';
 import { UserService } from 'src/modules/front/user/services/user.service';
 import { EmailVerificationTokenDto } from '../dtos';
 
+/**
+ * Service for handling email verification tokens
+ */
 @Injectable()
 export class EmailVerificationTokenService {
   constructor(
@@ -16,6 +19,12 @@ export class EmailVerificationTokenService {
     private readonly emailService: EmailService,
   ) {}
 
+  /**
+   * Creates a new email verification token for a user
+   * @param userId - The ID of the user to create a token for
+   * @returns The generated verification token
+   * @throws BadRequestException if user ID is missing, user not found, or already verified
+   */
   async create(userId: string): Promise<string> {
     if (!userId) {
       throw new BadRequestException('User ID is required');
@@ -42,6 +51,12 @@ export class EmailVerificationTokenService {
     return token;
   }
 
+  /**
+   * Verifies an email verification token
+   * @param token - The verification token to validate
+   * @returns True if verification successful
+   * @throws BadRequestException if token invalid/expired or email already verified
+   */
   async verify(token: string): Promise<boolean | HttpExceptionOptions> {
     try {
       const payload =
