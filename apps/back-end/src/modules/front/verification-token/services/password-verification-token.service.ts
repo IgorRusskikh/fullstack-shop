@@ -7,6 +7,7 @@ import {
 import { UserService } from 'src/modules/front/user/services/user.service';
 import { PasswordVerificationTokenDto } from '../dtos/password-verification-token.dto';
 import { JwtService } from '@nestjs/jwt';
+import { Role } from 'src/common/enums/role.enum';
 
 @Injectable()
 export class PasswordVerificationTokenService {
@@ -29,6 +30,7 @@ export class PasswordVerificationTokenService {
     const payload: PasswordVerificationTokenDto = {
       userId,
       email: user.email,
+      role: Role.USER,
     };
 
     const token = await this.jwtService.signAsync(payload, {
