@@ -13,6 +13,7 @@ model User {
   phone            String?   @unique
   email            String?   @unique
   password         String?
+  role             UserRole  @default(USER)
   emailVerified    DateTime?
   image            String?
   refreshToken     String?
@@ -24,6 +25,12 @@ model User {
 
   Cart  Cart[]
   Order Order[]
+}
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  USER
 }
 
 model Account {
