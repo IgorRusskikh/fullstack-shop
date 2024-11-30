@@ -15,20 +15,9 @@ import { UserService } from '../services/user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  /* TODO: delete useless routes for users  */
-  @Get('get-all')
-  async getAll() {
-    return await this.userService.getAll();
-  }
-
   @Get(':id')
   async getOne(@Param('id') id: string) {
     return await this.userService.getOne(id);
-  }
-
-  @Post('')
-  async create(@Body() createUserData: Prisma.UserCreateInput) {
-    return await this.userService.create(createUserData);
   }
 
   @Put(':id')
