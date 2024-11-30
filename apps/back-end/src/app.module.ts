@@ -2,10 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AccountModule } from './modules/account/account.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { UserModule } from './modules/user/user.module';
-import { VerificationTokenModule } from './modules/verification-token/verification-token.module';
+import { PanelModule } from './modules/panel/panel.module';
+import { FrontModule } from './modules/front/front.module';
 
 @Module({
   imports: [
@@ -13,10 +11,8 @@ import { VerificationTokenModule } from './modules/verification-token/verificati
       isGlobal: true,
       envFilePath: '.env',
     }),
-    UserModule,
-    VerificationTokenModule,
-    AccountModule,
-    AuthModule,
+    FrontModule,
+    PanelModule,
   ],
   controllers: [AppController],
   providers: [AppService],
